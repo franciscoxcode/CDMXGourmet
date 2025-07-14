@@ -18,23 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.franciscocasillas.cdmxgourmet.adapters.RestaurantAdapter;
 
-
 public class MainActivity extends AppCompatActivity {
 
-    List<Restaurant> restaurantList;
+    // 🔓 Hacemos restaurantList pública y estática para que pueda ser usada en otros lugares
+    public static List<Restaurant> restaurantList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        restaurantList = new ArrayList<>();
 
         // Tacos Don Memo
         List<Dish> memoFood = new ArrayList<>();
@@ -84,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
         orientalExtras.add(new Dish("Edamames con sal", 35, "Vainas de soya cocidas con sal de mar.", "placeholder.png"));
         restaurantList.add(new Restaurant("Delicias Orientales", orientalFood, orientalDrinks, orientalExtras));
 
+        // Setup del RecyclerView
         RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         RestaurantAdapter adapter = new RestaurantAdapter(restaurantList);
         recyclerView.setAdapter(adapter);
-
     }
 }

@@ -14,4 +14,16 @@ public class Restaurant {
         this.drinks = drinks;
         this.extras = extras;
     }
+
+    public List<Dish> getFood() {
+        return food;
+    }
+
+    public List<Dish> getDrinks() {
+        return drinks;
+    }
+
+    public List<Dish> getExtras() {
+        return extras;
+    }
 }
