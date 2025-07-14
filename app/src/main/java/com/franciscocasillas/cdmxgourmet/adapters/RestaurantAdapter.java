@@ -36,6 +36,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Restaurant restaurant = restaurantList.get(position);
         holder.nameTextView.setText(restaurant.name);
+
+        holder.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent(context, RestaurantDetailActivity.class);
+            intent.putExtra("restaurant_name", restaurant.name);
+            intent.putExtra("restaurant_index", position); // ✅ CORREGIDO
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -49,13 +57,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.restaurantNameTextView);
-
-            itemView.setOnClickListener(v -> {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, RestaurantDetailActivity.class);
-                intent.putExtra("restaurant_name", nameTextView.getText().toString());
-                context.startActivity(intent);
-            });
         }
     }
 }
