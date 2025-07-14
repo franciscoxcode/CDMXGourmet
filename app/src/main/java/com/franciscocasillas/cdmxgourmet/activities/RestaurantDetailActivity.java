@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.util.Log;
+
 
 import com.franciscocasillas.cdmxgourmet.R;
 
@@ -24,6 +26,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             return insets;
         });
 
+        Log.d("DEBUG", "Buscando TextView...");
         TextView nameTextView = findViewById(R.id.restaurantNameTextView);
         String restaurantName = getIntent().getStringExtra("restaurant_name");
         nameTextView.setText(restaurantName);

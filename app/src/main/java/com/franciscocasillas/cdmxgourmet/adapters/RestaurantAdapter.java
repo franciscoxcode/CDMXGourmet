@@ -1,5 +1,7 @@
 package com.franciscocasillas.cdmxgourmet.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.franciscocasillas.cdmxgourmet.R;
+import com.franciscocasillas.cdmxgourmet.activities.RestaurantDetailActivity;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
 
 import java.util.List;
@@ -46,6 +49,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.restaurantNameTextView);
+
+            itemView.setOnClickListener(v -> {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, RestaurantDetailActivity.class);
+                intent.putExtra("restaurant_name", nameTextView.getText().toString());
+                context.startActivity(intent);
+            });
         }
     }
 }
