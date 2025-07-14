@@ -15,6 +15,10 @@ public class Restaurant {
         this.extras = extras;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public List<Dish> getFood() {
         return food;
     }

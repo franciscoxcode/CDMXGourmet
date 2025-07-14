@@ -14,14 +14,17 @@ import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.activities.RestaurantDetailActivity;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
+import com.franciscocasillas.cdmxgourmet.MainActivity;
+
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
     private List<Restaurant> restaurantList;
 
     public RestaurantAdapter(List<Restaurant> restaurantList) {
-        this.restaurantList = restaurantList;
+        this.restaurantList = new ArrayList<>(restaurantList); // copiar
     }
 
     @NonNull
@@ -41,7 +44,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             Context context = v.getContext();
             Intent intent = new Intent(context, RestaurantDetailActivity.class);
             intent.putExtra("restaurant_name", restaurant.name);
-            intent.putExtra("restaurant_index", position); // ✅ CORREGIDO
+            int indexInFullList = MainActivity.restaurantList.indexOf(restaurant);
+            intent.putExtra("restaurant_index", indexInFullList);
             context.startActivity(intent);
         });
     }
@@ -50,6 +54,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     public int getItemCount() {
         return restaurantList.size();
     }
+
+    // ✅ Método para actualizar la lista al hacer búsqueda
+    public void updateList(List<Restaurant> newList) {
+        restaurantList = newList;
+        notifyDataSetChanged();
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;

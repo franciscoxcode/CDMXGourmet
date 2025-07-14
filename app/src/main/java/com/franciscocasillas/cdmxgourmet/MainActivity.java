@@ -1,38 +1,40 @@
 package com.franciscocasillas.cdmxgourmet;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.franciscocasillas.cdmxgourmet.adapters.RestaurantAdapter;
 import com.franciscocasillas.cdmxgourmet.models.Dish;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.franciscocasillas.cdmxgourmet.adapters.RestaurantAdapter;
-import androidx.appcompat.widget.Toolbar;
-
+import java.util.stream.Collectors;
 
 public class MainActivity extends AppCompatActivity {
 
-    // 🔓 Hacemos restaurantList pública y estática para que pueda ser usada en otros lugares
     public static List<Restaurant> restaurantList = new ArrayList<>();
+    private RestaurantAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -40,7 +42,47 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Tacos Don Memo
+        setupRestaurants(); // ✅ Llamada aquí
+
+        RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new RestaurantAdapter(restaurantList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    filterRestaurants(newText); // ✅ ahora sí filtra
+                    return true;
+                }
+            });
+        }
+
+        return true;
+    }
+
+    private void filterRestaurants(String text) {
+        List<Restaurant> filteredList = restaurantList.stream()
+                .filter(r -> r.name.toLowerCase().contains(text.toLowerCase())) // ✅ usamos .name
+                .collect(Collectors.toList());
+        adapter.updateList(filteredList);
+    }
+
+    private void setupRestaurants() {
         List<Dish> memoFood = new ArrayList<>();
         memoFood.add(new Dish("Tacos al pastor", 35, "Tortillas de maíz con carne de cerdo adobada, piña y cebolla.", "placeholder"));
         memoFood.add(new Dish("Quesadillas de huitlacoche", 40, "Quesadillas con el hongo mexicano huitlacoche, preparadas a la plancha.", "placeholder"));
@@ -52,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         memoExtras.add(new Dish("Totopos con salsa", 15, "Trozos de tortilla frita servidos con salsa roja o verde.", "placeholder"));
         restaurantList.add(new Restaurant("Tacos Don Memo", memoFood, memoDrinks, memoExtras));
 
-        // Green Vida
         List<Dish> greenFood = new ArrayList<>();
         greenFood.add(new Dish("Ensalada de quinoa", 55, "Base de quinoa con espinacas, jitomate cherry y vinagreta cítrica.", "placeholder"));
         greenFood.add(new Dish("Hamburguesa vegana", 65, "Pan integral con medallón de lentejas y verduras.", "placeholder"));
@@ -64,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         greenExtras.add(new Dish("Hummus con zanahorias", 30, "Crema de garbanzo servida con bastones de zanahoria.", "placeholder"));
         restaurantList.add(new Restaurant("Green Vida", greenFood, greenDrinks, greenExtras));
 
-        // Pizzería Napoli
         List<Dish> napoliFood = new ArrayList<>();
         napoliFood.add(new Dish("Pizza margarita", 85, "Pizza clásica con salsa de tomate, mozzarella y albahaca.", "placeholder"));
         napoliFood.add(new Dish("Lasaña boloñesa", 95, "Capas de pasta con carne molida, bechamel y queso.", "placeholder"));
@@ -76,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         napoliExtras.add(new Dish("Ensalada caprese", 45, "Mozzarella fresca con jitomate y albahaca.", "placeholder"));
         restaurantList.add(new Restaurant("Pizzería Napoli", napoliFood, napoliDrinks, napoliExtras));
 
-        // Delicias Orientales
         List<Dish> orientalFood = new ArrayList<>();
         orientalFood.add(new Dish("Ramen de cerdo", 90, "Sopa japonesa con fideos, caldo de cerdo y huevo.", "placeholder"));
         orientalFood.add(new Dish("Arroz frito con vegetales", 75, "Arroz salteado con verduras y salsa de soya.", "placeholder"));
@@ -87,11 +126,5 @@ public class MainActivity extends AppCompatActivity {
         orientalExtras.add(new Dish("Gyozas", 50, "Empanadillas rellenas de carne y vegetales.", "placeholder"));
         orientalExtras.add(new Dish("Edamames con sal", 35, "Vainas de soya cocidas con sal de mar.", "placeholder"));
         restaurantList.add(new Restaurant("Delicias Orientales", orientalFood, orientalDrinks, orientalExtras));
-
-        // Setup del RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        RestaurantAdapter adapter = new RestaurantAdapter(restaurantList);
-        recyclerView.setAdapter(adapter);
     }
 }
