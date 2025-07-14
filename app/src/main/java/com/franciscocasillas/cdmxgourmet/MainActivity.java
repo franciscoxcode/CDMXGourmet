@@ -8,6 +8,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.franciscocasillas.cdmxgourmet.models.Dish;
+import com.franciscocasillas.cdmxgourmet.models.Restaurant;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     List<Restaurant> restaurantList;
