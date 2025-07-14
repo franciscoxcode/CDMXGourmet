@@ -61,6 +61,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
                     intent.putExtra("dish_name", clickedDish.name);
                     intent.putExtra("dish_description", clickedDish.description);
                     intent.putExtra("dish_price", clickedDish.price);
+                    intent.putExtra("dish_image", clickedDish.imageUrl);
+
 
                     v.getContext().startActivity(intent);
                 }
