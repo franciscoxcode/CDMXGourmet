@@ -8,12 +8,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.util.Log;
 
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.franciscocasillas.cdmxgourmet.R;
+import com.franciscocasillas.cdmxgourmet.adapters.RestaurantPagerAdapter;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
+
+    private static final String[] TAB_TITLES = new String[]{"Comida", "Bebidas", "Complementos"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +32,21 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             return insets;
         });
 
-        Log.d("DEBUG", "Buscando TextView...");
-        TextView nameTextView = findViewById(R.id.restaurantNameTextView);
+        // 🧠 Obtener el nombre e índice
         String restaurantName = getIntent().getStringExtra("restaurant_name");
+        int restaurantIndex = getIntent().getIntExtra("restaurant_index", 0);
+
+        // 🏷️ Mostrar el nombre
+        TextView nameTextView = findViewById(R.id.restaurantNameTextView);
         nameTextView.setText(restaurantName);
+
+        // 📲 Configurar ViewPager y TabLayout
+        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new RestaurantPagerAdapter(this, restaurantIndex));
+
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        new TabLayoutMediator(tabLayout, viewPager,
+                (tab, position) -> tab.setText(TAB_TITLES[position])
+        ).attach();
     }
 }
