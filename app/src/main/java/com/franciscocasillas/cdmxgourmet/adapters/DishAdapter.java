@@ -33,7 +33,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Dish dish = dishList.get(position);
         holder.dishNameTextView.setText(dish.name);
-        holder.dishDescriptionTextView.setText(dish.description);
         holder.dishPriceTextView.setText("$" + dish.price + " MXN");
     }
 
@@ -44,13 +43,11 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView dishNameTextView;
-        TextView dishDescriptionTextView;
         TextView dishPriceTextView;
 
         ViewHolder(View itemView) {
             super(itemView);
             dishNameTextView = itemView.findViewById(R.id.dishNameTextView);
-            dishDescriptionTextView = itemView.findViewById(R.id.dishDescriptionTextView);
             dishPriceTextView = itemView.findViewById(R.id.dishPriceTextView);
         }
     }

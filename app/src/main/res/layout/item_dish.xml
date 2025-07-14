@@ -6,29 +6,23 @@
     android:layout_height="wrap_content"
     android:padding="12dp">
 
+    <!-- 🏷️ Nombre del platillo (izquierda) -->
     <TextView
         android:id="@+id/dishNameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Nombre del platillo"
         android:textStyle="bold"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toStartOf="@id/dishPriceTextView"
+        app:layout_constraintHorizontal_bias="0"
+        android:ellipsize="end"
+        android:maxLines="1" />
 
-    <TextView
-        android:id="@+id/dishDescriptionTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Descripción del platillo"
-        android:textSize="14sp"
-        android:textColor="#666666"
-        app:layout_constraintTop_toBottomOf="@id/dishNameTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp"/>
-
+    <!-- 💰 Precio (derecha) -->
     <TextView
         android:id="@+id/dishPriceTextView"
         android:layout_width="wrap_content"
@@ -36,8 +30,8 @@
         android:text="$0 MXN"
         android:textSize="14sp"
         android:textColor="#009688"
-        app:layout_constraintTop_toBottomOf="@id/dishDescriptionTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="4dp"/>
+        app:layout_constraintTop_toTopOf="@id/dishNameTextView"
+        app:layout_constraintBottom_toBottomOf="@id/dishNameTextView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
