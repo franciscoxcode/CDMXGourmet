@@ -1,5 +1,6 @@
 package com.franciscocasillas.cdmxgourmet.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.franciscocasillas.cdmxgourmet.R;
+import com.franciscocasillas.cdmxgourmet.activities.DishDetailActivity;
 import com.franciscocasillas.cdmxgourmet.models.Dish;
 
 import java.util.List;
@@ -41,7 +43,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
         return dishList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView dishNameTextView;
         TextView dishPriceTextView;
 
@@ -49,6 +51,20 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
             super(itemView);
             dishNameTextView = itemView.findViewById(R.id.dishNameTextView);
             dishPriceTextView = itemView.findViewById(R.id.dishPriceTextView);
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    Dish clickedDish = dishList.get(position);
+
+                    Intent intent = new Intent(v.getContext(), DishDetailActivity.class);
+                    intent.putExtra("dish_name", clickedDish.name);
+                    intent.putExtra("dish_description", clickedDish.description);
+                    intent.putExtra("dish_price", clickedDish.price);
+
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
