@@ -1,21 +1,20 @@
 package com.franciscocasillas.cdmxgourmet.activities;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.adapters.RestaurantPagerAdapter;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
@@ -26,6 +25,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_restaurant_detail);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -36,9 +36,13 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         String restaurantName = getIntent().getStringExtra("restaurant_name");
         int restaurantIndex = getIntent().getIntExtra("restaurant_index", 0);
 
-        // 🏷️ Mostrar el nombre
-        TextView nameTextView = findViewById(R.id.restaurantNameTextView);
-        nameTextView.setText(restaurantName);
+        // ✅ Configurar Toolbar como ActionBar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(restaurantName);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // 📲 Configurar ViewPager y TabLayout
         ViewPager2 viewPager = findViewById(R.id.viewPager);
@@ -48,5 +52,15 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(TAB_TITLES[position])
         ).attach();
+    }
+
+    // ⬅️ Botón de regreso en Toolbar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

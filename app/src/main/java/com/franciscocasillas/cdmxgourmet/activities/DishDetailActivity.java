@@ -1,10 +1,12 @@
 package com.franciscocasillas.cdmxgourmet.activities;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.franciscocasillas.cdmxgourmet.R;
 
@@ -20,6 +22,14 @@ public class DishDetailActivity extends AppCompatActivity {
         String description = getIntent().getStringExtra("dish_description");
         double price = getIntent().getDoubleExtra("dish_price", 0.0);
         String imageUrl = getIntent().getStringExtra("dish_image");
+
+        // Configurar Toolbar como ActionBar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(name);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         // Referencias UI
         TextView nameText = findViewById(R.id.dishNameTextView);
@@ -39,7 +49,17 @@ public class DishDetailActivity extends AppCompatActivity {
         if (imageResId != 0) {
             dishImageView.setImageResource(imageResId);
         } else {
-            dishImageView.setImageResource(R.drawable.placeholder); // Fallback si no existe
+            dishImageView.setImageResource(R.drawable.placeholder);
         }
+    }
+
+    // Habilitar comportamiento de retroceso
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Cierra la actividad y regresa
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

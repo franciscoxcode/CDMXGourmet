@@ -6,28 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Título del restaurante -->
-    <TextView
-        android:id="@+id/restaurantNameTextView"
-        android:layout_width="wrap_content"
+    <!-- ✅ Barra superior (Toolbar con título dinámico y botón de back) -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nombre del restaurante"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="4dp"/>
 
-    <!-- Tabs -->
+    <!-- 🟦 Tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/restaurantNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Contenido deslizante -->
+    <!-- 📲 Contenido deslizante -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"
