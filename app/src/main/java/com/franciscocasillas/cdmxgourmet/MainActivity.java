@@ -14,6 +14,11 @@ import com.franciscocasillas.cdmxgourmet.models.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.franciscocasillas.cdmxgourmet.adapters.RestaurantAdapter;
+
+
 public class MainActivity extends AppCompatActivity {
 
     List<Restaurant> restaurantList;
@@ -78,5 +83,11 @@ public class MainActivity extends AppCompatActivity {
         orientalExtras.add(new Dish("Gyozas", 50, "Empanadillas rellenas de carne y vegetales.", "placeholder.png"));
         orientalExtras.add(new Dish("Edamames con sal", 35, "Vainas de soya cocidas con sal de mar.", "placeholder.png"));
         restaurantList.add(new Restaurant("Delicias Orientales", orientalFood, orientalDrinks, orientalExtras));
+
+        RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RestaurantAdapter adapter = new RestaurantAdapter(restaurantList);
+        recyclerView.setAdapter(adapter);
+
     }
 }
