@@ -5,5 +5,12 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.CDMXGourmet" parent="Base.Theme.CDMXGourmet" />
+    <style name="Theme.CDMXGourmet" parent="Base.Theme.CDMXGourmet">
+        <item name="toolbarStyle">@style/WhiteToolbarStyle</item>
+    </style>
+
+    <style name="WhiteToolbarStyle" parent="Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@android:color/white</item>
+    </style>
+
 </resources>
