@@ -17,7 +17,9 @@ import com.franciscocasillas.cdmxgourmet.models.Dish;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
 import com.franciscocasillas.cdmxgourmet.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DishListFragment extends Fragment {
 
@@ -26,6 +28,9 @@ public class DishListFragment extends Fragment {
 
     private int restaurantIndex;
     private String category;
+
+    private DishAdapter adapter;
+    private List<Dish> originalList;
 
     public static DishListFragment newInstance(int index, String category) {
         DishListFragment fragment = new DishListFragment();
@@ -36,9 +41,7 @@ public class DishListFragment extends Fragment {
         return fragment;
     }
 
-    public DishListFragment() {
-        // Required empty public constructor
-    }
+    public DishListFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,26 +63,35 @@ public class DishListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Restaurant restaurant = MainActivity.restaurantList.get(restaurantIndex);
-        List<Dish> data;
 
         switch (category) {
             case "food":
-                data = restaurant.getFood();
+                originalList = restaurant.getFood();
                 break;
             case "drink":
-                data = restaurant.getDrinks();
+                originalList = restaurant.getDrinks();
                 break;
             case "side":
-                data = restaurant.getExtras();
+                originalList = restaurant.getExtras();
                 break;
             default:
-                data = null;
+                originalList = new ArrayList<>();
                 break;
         }
 
-        DishAdapter adapter = new DishAdapter(data);
+        adapter = new DishAdapter(new ArrayList<>(originalList));
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    public void filter(String query) {
+        if (adapter == null || originalList == null) return;
+
+        List<Dish> filtered = originalList.stream()
+                .filter(d -> d.name.toLowerCase().contains(query.toLowerCase()))
+                .collect(Collectors.toList());
+
+        adapter.updateList(filtered);
     }
 }

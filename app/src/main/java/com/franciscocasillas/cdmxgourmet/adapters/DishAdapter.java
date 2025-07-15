@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
 
-    private final List<Dish> dishList;
+    private List<Dish> dishList;
 
     public DishAdapter(List<Dish> dishList) {
         this.dishList = dishList;
@@ -43,6 +43,13 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
         return dishList.size();
     }
 
+    // 🔁 Actualiza la lista filtrada
+    public void updateList(List<Dish> newList) {
+        dishList.clear();
+        dishList.addAll(newList);
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView dishNameTextView;
         TextView dishPriceTextView;
@@ -62,7 +69,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
                     intent.putExtra("dish_description", clickedDish.description);
                     intent.putExtra("dish_price", clickedDish.price);
                     intent.putExtra("dish_image", clickedDish.imageUrl);
-
 
                     v.getContext().startActivity(intent);
                 }

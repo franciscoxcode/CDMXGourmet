@@ -1,10 +1,12 @@
 package com.franciscocasillas.cdmxgourmet.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -54,6 +56,33 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         ).attach();
     }
 
+    // 🔍 Menú de búsqueda
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    applyFilter(query); // lo haremos en el siguiente paso
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    applyFilter(newText);
+                    return true;
+                }
+            });
+        }
+
+        return true;
+    }
+
     // ⬅️ Botón de regreso en Toolbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -62,5 +91,10 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // 🔜 Este método lo agregaremos pronto:
+    private void applyFilter(String query) {
+        // lo haremos después
     }
 }

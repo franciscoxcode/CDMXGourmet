@@ -7,9 +7,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.franciscocasillas.cdmxgourmet.fragments.DishListFragment;
 
+import java.util.HashMap;
+
 public class RestaurantPagerAdapter extends FragmentStateAdapter {
 
     private final int restaurantIndex;
+    private final HashMap<Integer, DishListFragment> fragmentMap = new HashMap<>();
 
     public RestaurantPagerAdapter(@NonNull FragmentActivity fa, int restaurantIndex) {
         super(fa);
@@ -19,15 +22,31 @@ public class RestaurantPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        String type = "food";
-        if (position == 1) type = "drink";
-        else if (position == 2) type = "side";
+        String type;
+        switch (position) {
+            case 1:
+                type = "drink";
+                break;
+            case 2:
+                type = "side";
+                break;
+            default:
+                type = "food";
+                break;
+        }
 
-        return DishListFragment.newInstance(restaurantIndex, type);
+
+        DishListFragment fragment = DishListFragment.newInstance(restaurantIndex, type);
+        fragmentMap.put(position, fragment);
+        return fragment;
     }
 
     @Override
     public int getItemCount() {
-        return 3; // comida, bebida, complemento
+        return 3;
+    }
+
+    public DishListFragment getFragment(int position) {
+        return fragmentMap.get(position);
     }
 }
