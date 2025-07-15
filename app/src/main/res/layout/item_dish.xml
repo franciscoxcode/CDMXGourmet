@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="12dp">
 
-    <!-- 🏷️ Nombre del platillo (izquierda) -->
+    <!-- Dish name -->
     <TextView
         android:id="@+id/dishNameTextView"
         android:layout_width="0dp"
@@ -22,7 +22,7 @@
         android:ellipsize="end"
         android:maxLines="1" />
 
-    <!-- 💰 Precio (derecha) -->
+    <!-- Pricing -->
     <TextView
         android:id="@+id/dishPriceTextView"
         android:layout_width="wrap_content"

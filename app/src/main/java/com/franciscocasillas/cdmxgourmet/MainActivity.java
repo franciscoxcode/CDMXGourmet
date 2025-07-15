@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        setupRestaurants(); // ✅ Llamada aquí
+        setupRestaurants();
 
         RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    filterRestaurants(newText); // ✅ ahora sí filtra
+                    filterRestaurants(newText);
                     return true;
                 }
             });
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void filterRestaurants(String text) {
         List<Restaurant> filteredList = restaurantList.stream()
-                .filter(r -> r.name.toLowerCase().contains(text.toLowerCase())) // ✅ usamos .name
+                .filter(r -> r.name.toLowerCase().contains(text.toLowerCase()))
                 .collect(Collectors.toList());
         adapter.updateList(filteredList);
     }

@@ -43,7 +43,7 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
         return dishList.size();
     }
 
-    // 🔁 Actualiza la lista filtrada
+    // Update filtered list
     public void updateList(List<Dish> newList) {
         dishList.clear();
         dishList.addAll(newList);

@@ -22,20 +22,20 @@ public class DishDetailActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dish_detail);
 
-        // 🛠️ Ajustar insets
+        // Insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // 🧠 Obtener datos del intent
+        // Insets data
         String name = getIntent().getStringExtra("dish_name");
         String description = getIntent().getStringExtra("dish_description");
         double price = getIntent().getDoubleExtra("dish_price", 0.0);
         String imageUrl = getIntent().getStringExtra("dish_image");
 
-        // 🧭 Configurar toolbar
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -43,18 +43,18 @@ public class DishDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // 🎯 Referencias de vista
+        // Views
         TextView nameTextView = findViewById(R.id.dishNameTextView);
         TextView priceTextView = findViewById(R.id.dishPriceTextView);
         TextView descriptionTextView = findViewById(R.id.dishDescriptionTextView);
         ImageView imageView = findViewById(R.id.dishImageView);
 
-        // 🖼️ Cargar información
+        // Load data
         nameTextView.setText(name);
         priceTextView.setText(String.format("$%.2f MXN", price));
         descriptionTextView.setText(description);
 
-        // 🖼️ Cargar imagen (con fallback a placeholder)
+        // Load image
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Picasso.get()
                     .load(imageUrl)
@@ -66,7 +66,7 @@ public class DishDetailActivity extends AppCompatActivity {
         }
     }
 
-    // ⬅️ Botón de regreso
+    // Back button
     @Override
     public boolean onSupportNavigateUp() {
         finish();

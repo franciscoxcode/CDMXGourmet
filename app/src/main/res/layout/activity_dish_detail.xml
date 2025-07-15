@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- ✅ Barra de navegación superior -->
+        <!-- Top navbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:titleTextColor="@android:color/white"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-        <!-- 🔼 HStack con imagen + VStack (precio y nombre) -->
+        <!-- HStack with image + VStack (price and name) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- 📝 Descripción -->
+        <!-- Description -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

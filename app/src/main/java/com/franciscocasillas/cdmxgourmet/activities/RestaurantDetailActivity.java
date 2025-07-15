@@ -36,11 +36,11 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             return insets;
         });
 
-        // 🧠 Obtener el nombre e índice
+        // Index name
         String restaurantName = getIntent().getStringExtra("restaurant_name");
         int restaurantIndex = getIntent().getIntExtra("restaurant_index", 0);
 
-        // ✅ Configurar Toolbar como ActionBar
+        // Toolbar as action bar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -48,7 +48,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // 📲 Configurar ViewPager y TabLayout
+        // ViewPager and TabLayout
         ViewPager2 viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new RestaurantPagerAdapter(this, restaurantIndex));
 
@@ -58,7 +58,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         ).attach();
     }
 
-    // 🔍 Menú de búsqueda
+    // Search menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -70,7 +70,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
-                    applyFilter(query); // lo haremos en el siguiente paso
+                    applyFilter(query);
                     return false;
                 }
 
@@ -85,7 +85,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    // ⬅️ Botón de regreso en Toolbar
+    // Back button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -95,7 +95,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // 🔜 Este método lo agregaremos pronto:
     private void applyFilter(String query) {
         int currentTab = ((ViewPager2) findViewById(R.id.viewPager)).getCurrentItem();
         RestaurantPagerAdapter adapter = (RestaurantPagerAdapter) ((ViewPager2) findViewById(R.id.viewPager)).getAdapter();

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- ✅ Barra superior (Toolbar con título dinámico y botón de back) -->
+    <!--  Toolbar  -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:elevation="4dp"/>
 
-    <!-- 🟦 Tabs -->
+    <!-- Tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 📲 Contenido deslizante -->
+    <!-- Scrollview -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"

@@ -24,7 +24,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     private List<Restaurant> restaurantList;
 
     public RestaurantAdapter(List<Restaurant> restaurantList) {
-        this.restaurantList = new ArrayList<>(restaurantList); // copiar
+        this.restaurantList = new ArrayList<>(restaurantList);
     }
 
     @NonNull
@@ -55,7 +55,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return restaurantList.size();
     }
 
-    // ✅ Método para actualizar la lista al hacer búsqueda
+    // Update search list
     public void updateList(List<Restaurant> newList) {
         restaurantList = newList;
         notifyDataSetChanged();
