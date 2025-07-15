@@ -94,4 +94,5 @@ public class DishListFragment extends Fragment {
 
         adapter.updateList(filtered);
     }
+
 }

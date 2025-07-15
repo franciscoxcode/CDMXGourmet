@@ -17,6 +17,8 @@ import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.adapters.RestaurantPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.franciscocasillas.cdmxgourmet.fragments.DishListFragment;
+
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
@@ -95,6 +97,14 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
     // 🔜 Este método lo agregaremos pronto:
     private void applyFilter(String query) {
-        // lo haremos después
+        int currentTab = ((ViewPager2) findViewById(R.id.viewPager)).getCurrentItem();
+        RestaurantPagerAdapter adapter = (RestaurantPagerAdapter) ((ViewPager2) findViewById(R.id.viewPager)).getAdapter();
+
+        if (adapter != null) {
+            DishListFragment fragment = adapter.getFragment(currentTab);
+            if (fragment != null) {
+                fragment.filter(query);
+            }
+        }
     }
 }

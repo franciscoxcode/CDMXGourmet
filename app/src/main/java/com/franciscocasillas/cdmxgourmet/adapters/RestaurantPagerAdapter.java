@@ -49,4 +49,8 @@ public class RestaurantPagerAdapter extends FragmentStateAdapter {
     public DishListFragment getFragment(int position) {
         return fragmentMap.get(position);
     }
+
+    public void registerFragment(int position, DishListFragment fragment) {
+        fragmentMap.put(position, fragment);
+    }
 }
