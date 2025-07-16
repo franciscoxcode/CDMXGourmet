@@ -7,16 +7,31 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-<EditText
-android:id="@+id/editTextRestaurantName"
-android:layout_width="0dp"
-android:layout_height="wrap_content"
-android:hint="Nuevo nombre del restaurante"
-android:inputType="textPersonName"
-app:layout_constraintTop_toTopOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintEnd_toEndOf="parent" />
+    <!-- 🧱 Toolbar arriba -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:titleTextColor="@android:color/white"
+        app:title="Editar restaurante"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- ✏️ Campo para editar nombre -->
+    <EditText
+        android:id="@+id/editTextRestaurantName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nuevo nombre del restaurante"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
+
+    <!-- 🔘 Botones alineados horizontalmente -->
     <LinearLayout
         android:id="@+id/buttonRow"
         android:layout_width="0dp"
@@ -48,4 +63,4 @@ app:layout_constraintEnd_toEndOf="parent" />
             android:textColor="@android:color/holo_red_dark" />
     </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

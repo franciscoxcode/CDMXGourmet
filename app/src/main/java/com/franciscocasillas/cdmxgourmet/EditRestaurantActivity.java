@@ -7,9 +7,10 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.franciscocasillas.cdmxgourmet.data.RestaurantDao;
 
@@ -30,6 +31,14 @@ public class EditRestaurantActivity extends AppCompatActivity {
             v.setPadding(sb.left, sb.top, sb.right, sb.bottom);
             return insets;
         });
+
+        // 🧱 Toolbar con botón de regreso
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Editar restaurante");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         editTextRestaurantName = findViewById(R.id.editTextRestaurantName);
         updateButton = findViewById(R.id.updateButton);
@@ -62,5 +71,11 @@ public class EditRestaurantActivity extends AppCompatActivity {
             Toast.makeText(this, "Restaurante eliminado", Toast.LENGTH_SHORT).show();
             finish();
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
