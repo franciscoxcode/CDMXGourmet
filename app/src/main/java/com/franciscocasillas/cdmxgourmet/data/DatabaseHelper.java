@@ -10,7 +10,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_RESTAURANTS = "restaurants";
-    public static final String TABLE_FOOD = "food";
+    public static final String TABLE_DISHES = "dishes"; // 🔄 antes "food"
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -18,13 +18,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Crear tabla de restaurantes
+        // 🍽️ Tabla de restaurantes
         db.execSQL("CREATE TABLE " + TABLE_RESTAURANTS + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT NOT NULL)");
 
-        // Crear tabla de alimentos
-        db.execSQL("CREATE TABLE " + TABLE_FOOD + " (" +
+        // 🍱 Tabla de platillos
+        db.execSQL("CREATE TABLE " + TABLE_DISHES + " (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "name TEXT NOT NULL, " +
                 "price REAL NOT NULL, " +
@@ -33,23 +33,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "restaurant_id INTEGER, " +
                 "FOREIGN KEY(restaurant_id) REFERENCES restaurants(_id))");
 
-        // Insertar restaurantes de prueba
+        // Datos de prueba
         db.execSQL("INSERT INTO restaurants (name) VALUES ('Tacos El Gato')");
         db.execSQL("INSERT INTO restaurants (name) VALUES ('Sushi Swift')");
         db.execSQL("INSERT INTO restaurants (name) VALUES ('Café Kotlin')");
 
-        // Insertar platillos para el primer restaurante
-        db.execSQL("INSERT INTO food (name, price, description, type, restaurant_id) " +
+        db.execSQL("INSERT INTO dishes (name, price, description, type, restaurant_id) " +
                 "VALUES ('Taco al Pastor', 25.00, 'Con piña y salsa roja', 'food', 1)");
-        db.execSQL("INSERT INTO food (name, price, description, type, restaurant_id) " +
+        db.execSQL("INSERT INTO dishes (name, price, description, type, restaurant_id) " +
                 "VALUES ('Agua de Horchata', 15.00, 'Refrescante y dulce', 'drink', 1)");
-        db.execSQL("INSERT INTO food (name, price, description, type, restaurant_id) " +
+        db.execSQL("INSERT INTO dishes (name, price, description, type, restaurant_id) " +
                 "VALUES ('Guacamole', 30.00, 'Con totopos', 'complement', 1)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FOOD);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISHES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESTAURANTS);
         onCreate(db);
     }

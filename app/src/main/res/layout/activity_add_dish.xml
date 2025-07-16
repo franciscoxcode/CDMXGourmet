@@ -79,19 +79,22 @@
                     android:id="@+id/radioFood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comida" />
+                    android:text="Comida"
+                    android:tag="food" />
 
                 <RadioButton
                     android:id="@+id/radioDrink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bebida" />
+                    android:text="Bebida"
+                    android:tag="drink" />
 
                 <RadioButton
                     android:id="@+id/radioExtra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Complemento" />
+                    android:text="Complemento"
+                    android:tag="complement" />
             </RadioGroup>
 
             <!-- ✅ Botón Guardar -->

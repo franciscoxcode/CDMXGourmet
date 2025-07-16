@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.franciscocasillas.cdmxgourmet.data.RestaurantDao;
 import com.franciscocasillas.cdmxgourmet.models.Dish;
 
 public class AddDishActivity extends AppCompatActivity {
@@ -17,6 +18,7 @@ public class AddDishActivity extends AppCompatActivity {
     private EditText nameInput, priceInput, descriptionInput;
     private RadioGroup typeGroup;
     private Button saveDishButton;
+    private int restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,14 @@ public class AddDishActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        // 🟡 Obtener ID del restaurante
+        restaurantId = getIntent().getIntExtra("restaurant_id", -1);
+        if (restaurantId == -1) {
+            Toast.makeText(this, "Error: Restaurante no encontrado", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
         nameInput = findViewById(R.id.editTextDishName);
         priceInput = findViewById(R.id.editTextDishPrice);
         descriptionInput = findViewById(R.id.editTextDishDescription);
@@ -39,26 +49,35 @@ public class AddDishActivity extends AppCompatActivity {
 
         saveDishButton.setOnClickListener(v -> {
             String name = nameInput.getText().toString().trim();
-            String price = priceInput.getText().toString().trim();
+            String priceStr = priceInput.getText().toString().trim();
             String description = descriptionInput.getText().toString().trim();
             int selectedTypeId = typeGroup.getCheckedRadioButtonId();
 
-            if (name.isEmpty() || price.isEmpty() || description.isEmpty() || selectedTypeId == -1) {
+            if (name.isEmpty() || priceStr.isEmpty() || description.isEmpty() || selectedTypeId == -1) {
                 Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            double parsedPrice;
+            try {
+                parsedPrice = Double.parseDouble(priceStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Precio inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             RadioButton selectedRadio = findViewById(selectedTypeId);
-            String type = selectedRadio.getText().toString();
+            String type = selectedRadio.getTag().toString(); // ✅ Usar tag correcto
 
-            // 🔐 Aquí se guardará el platillo real más adelante
-            Toast.makeText(this, "Platillo agregado: " + name + " (" + type + ")", Toast.LENGTH_SHORT).show();
+            // ✅ Crear e insertar el platillo
+            Dish newDish = new Dish(name, parsedPrice, description, type);
+            new RestaurantDao(this).insertDishForRestaurant(restaurantId, newDish);
 
-            finish();
+            Toast.makeText(this, "Platillo guardado", Toast.LENGTH_SHORT).show();
+            finish(); // ⬅️ Regresa para refrescar
         });
     }
 
-    // Acción al tocar flecha de regreso ⬅️
     @Override
     public boolean onSupportNavigateUp() {
         finish();

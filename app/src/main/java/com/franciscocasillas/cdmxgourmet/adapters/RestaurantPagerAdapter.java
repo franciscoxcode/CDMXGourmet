@@ -11,12 +11,12 @@ import java.util.HashMap;
 
 public class RestaurantPagerAdapter extends FragmentStateAdapter {
 
-    private final int restaurantIndex;
+    private final int restaurantId;
     private final HashMap<Integer, DishListFragment> fragmentMap = new HashMap<>();
 
-    public RestaurantPagerAdapter(@NonNull FragmentActivity fa, int restaurantIndex) {
+    public RestaurantPagerAdapter(@NonNull FragmentActivity fa, int restaurantId) {
         super(fa);
-        this.restaurantIndex = restaurantIndex;
+        this.restaurantId = restaurantId;
     }
 
     @NonNull
@@ -28,15 +28,14 @@ public class RestaurantPagerAdapter extends FragmentStateAdapter {
                 type = "drink";
                 break;
             case 2:
-                type = "side";
+                type = "complement";
                 break;
             default:
                 type = "food";
                 break;
         }
 
-
-        DishListFragment fragment = DishListFragment.newInstance(restaurantIndex, type);
+        DishListFragment fragment = DishListFragment.newInstance(restaurantId, type);
         fragmentMap.put(position, fragment);
         return fragment;
     }
@@ -48,9 +47,5 @@ public class RestaurantPagerAdapter extends FragmentStateAdapter {
 
     public DishListFragment getFragment(int position) {
         return fragmentMap.get(position);
-    }
-
-    public void registerFragment(int position, DishListFragment fragment) {
-        fragmentMap.put(position, fragment);
     }
 }

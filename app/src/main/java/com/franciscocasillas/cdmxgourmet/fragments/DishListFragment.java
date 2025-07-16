@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.adapters.DishAdapter;
+import com.franciscocasillas.cdmxgourmet.data.RestaurantDao;
 import com.franciscocasillas.cdmxgourmet.models.Dish;
-import com.franciscocasillas.cdmxgourmet.models.Restaurant;
-import com.franciscocasillas.cdmxgourmet.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +22,19 @@ import java.util.stream.Collectors;
 
 public class DishListFragment extends Fragment {
 
-    private static final String ARG_INDEX = "index";
+    private static final String ARG_ID = "restaurant_id";
     private static final String ARG_CATEGORY = "category";
 
-    private int restaurantIndex;
+    private int restaurantId;
     private String category;
 
     private DishAdapter adapter;
     private List<Dish> originalList;
 
-    public static DishListFragment newInstance(int index, String category) {
+    public static DishListFragment newInstance(int id, String category) {
         DishListFragment fragment = new DishListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
+        args.putInt(ARG_ID, id);
         args.putString(ARG_CATEGORY, category);
         fragment.setArguments(args);
         return fragment;
@@ -47,9 +46,15 @@ public class DishListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            restaurantIndex = getArguments().getInt(ARG_INDEX);
+            restaurantId = getArguments().getInt(ARG_ID);
             category = getArguments().getString(ARG_CATEGORY);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadDishes(); // 🔄 Refrescar cada vez que volvemos
     }
 
     @Nullable
@@ -62,30 +67,20 @@ public class DishListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.dishRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (restaurantIndex < 0 || restaurantIndex >= MainActivity.restaurantList.size()) {
-            return view; // o puedes inflar una vista vacía alternativa
-        }
-        Restaurant restaurant = MainActivity.restaurantList.get(restaurantIndex);
-
-        switch (category) {
-            case "food":
-                originalList = restaurant.getFood();
-                break;
-            case "drink":
-                originalList = restaurant.getDrinks();
-                break;
-            case "side":
-                originalList = restaurant.getExtras();
-                break;
-            default:
-                originalList = new ArrayList<>();
-                break;
-        }
-
-        adapter = new DishAdapter(new ArrayList<>(originalList));
+        adapter = new DishAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
 
+        loadDishes(); // ✅ Cargar desde base de datos
+
         return view;
+    }
+
+    private void loadDishes() {
+        if (getContext() == null) return;
+
+        RestaurantDao dao = new RestaurantDao(getContext());
+        originalList = dao.getDishesByType(restaurantId, category);
+        adapter.updateList(originalList);
     }
 
     public void filter(String query) {
@@ -97,5 +92,4 @@ public class DishListFragment extends Fragment {
 
         adapter.updateList(filtered);
     }
-
 }
