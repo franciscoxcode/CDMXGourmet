@@ -46,21 +46,30 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Load restaurants from SQLite database
+        // Initial load of restaurants
         setupRestaurants();
 
-        // Setup RecyclerView with RestaurantAdapter
+        // Setup RecyclerView with adapter
         RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RestaurantAdapter(restaurantList);
         recyclerView.setAdapter(adapter);
 
-        // ➕ Set up FAB to open AddRestaurantActivity
+        // ➕ Floating button to open AddRestaurantActivity
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddRestaurantActivity.class);
             startActivity(intent);
         });
+    }
+
+    // 🔁 Refresh data when returning to MainActivity
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RestaurantDao dao = new RestaurantDao(this);
+        restaurantList = dao.getAllRestaurants();
+        adapter.updateList(restaurantList);
     }
 
     @Override
@@ -88,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // Filter restaurants by name using search input
     private void filterRestaurants(String text) {
         List<Restaurant> filteredList = restaurantList.stream()
                 .filter(r -> r.name.toLowerCase().contains(text.toLowerCase()))
@@ -96,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.updateList(filteredList);
     }
 
-    // Load restaurant data from SQLite using DAO
     private void setupRestaurants() {
         RestaurantDao dao = new RestaurantDao(this);
         restaurantList = dao.getAllRestaurants();
