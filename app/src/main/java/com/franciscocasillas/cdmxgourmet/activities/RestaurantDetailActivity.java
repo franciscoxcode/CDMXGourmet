@@ -1,5 +1,6 @@
 package com.franciscocasillas.cdmxgourmet.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +14,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.franciscocasillas.cdmxgourmet.AddDishActivity;
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.adapters.RestaurantPagerAdapter;
+import com.franciscocasillas.cdmxgourmet.fragments.DishListFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.franciscocasillas.cdmxgourmet.fragments.DishListFragment;
 
 public class RestaurantDetailActivity extends AppCompatActivity {
 
@@ -50,15 +53,22 @@ public class RestaurantDetailActivity extends AppCompatActivity {
 
         // ViewPager y tabs
         ViewPager2 viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new RestaurantPagerAdapter(this, restaurantId)); // ✅ usamos ID, no índice
+        viewPager.setAdapter(new RestaurantPagerAdapter(this, restaurantId));
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(TAB_TITLES[position])
         ).attach();
+
+        // FAB ➕ para añadir platillo
+        FloatingActionButton fab = findViewById(R.id.fabAddDish);
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddDishActivity.class);
+            intent.putExtra("restaurant_id", restaurantId);
+            startActivity(intent);
+        });
     }
 
-    // Menú de búsqueda
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -85,7 +95,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    // Acción del botón de retroceso
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -95,7 +104,6 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // Aplica filtro al tab actual
     private void applyFilter(String query) {
         int currentTab = ((ViewPager2) findViewById(R.id.viewPager)).getCurrentItem();
         RestaurantPagerAdapter adapter = (RestaurantPagerAdapter) ((ViewPager2) findViewById(R.id.viewPager)).getAdapter();

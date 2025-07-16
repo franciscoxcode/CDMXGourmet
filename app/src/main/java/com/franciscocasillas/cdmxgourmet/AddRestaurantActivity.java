@@ -7,12 +7,12 @@ import android.widget.Toast;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.franciscocasillas.cdmxgourmet.data.RestaurantDao;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class AddRestaurantActivity extends AppCompatActivity {
 
@@ -23,7 +23,15 @@ public class AddRestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_restaurant);
 
-        // ✅ Asegura que el ID exista antes de aplicar insets
+        // 🧭 Toolbar con botón de retroceso
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Agregar restaurante");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        // ✅ Insets para evitar que se solape con barra de estado
         View root = findViewById(R.id.main);
         if (root != null) {
             ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
@@ -37,7 +45,8 @@ public class AddRestaurantActivity extends AppCompatActivity {
         editTextRestaurantName = findViewById(R.id.editTextRestaurantName);
 
         // ➕ Botón para guardar restaurante
-        Button saveButton = findViewById(R.id.saveRestaurantButton);        saveButton.setOnClickListener(v -> {
+        Button saveButton = findViewById(R.id.saveRestaurantButton);
+        saveButton.setOnClickListener(v -> {
             String name = editTextRestaurantName.getText().toString().trim();
 
             if (name.isEmpty()) {
@@ -50,9 +59,14 @@ public class AddRestaurantActivity extends AppCompatActivity {
             dao.insertRestaurant(name);
 
             Toast.makeText(this, "Restaurante guardado", Toast.LENGTH_SHORT).show();
-
-            // ⬅️ Regresar a la pantalla anterior
-            finish();
+            finish(); // ⬅️ Regresar
         });
+    }
+
+    // Maneja el botón de back en Toolbar
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
