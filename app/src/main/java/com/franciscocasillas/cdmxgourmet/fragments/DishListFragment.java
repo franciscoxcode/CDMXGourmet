@@ -62,6 +62,9 @@ public class DishListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.dishRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        if (restaurantIndex < 0 || restaurantIndex >= MainActivity.restaurantList.size()) {
+            return view; // o puedes inflar una vista vacía alternativa
+        }
         Restaurant restaurant = MainActivity.restaurantList.get(restaurantIndex);
 
         switch (category) {

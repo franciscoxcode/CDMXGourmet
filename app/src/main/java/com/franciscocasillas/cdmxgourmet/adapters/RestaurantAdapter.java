@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.activities.RestaurantDetailActivity;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
-import com.franciscocasillas.cdmxgourmet.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     private List<Restaurant> restaurantList;
     private OnRestaurantLongClickListener longClickListener;
 
-    // Interfaz para manejar clic largo 🖱️
     public interface OnRestaurantLongClickListener {
         void onRestaurantLongClick(View view, Restaurant restaurant);
     }
@@ -49,16 +47,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         Restaurant restaurant = restaurantList.get(position);
         holder.nameTextView.setText(restaurant.name);
 
-        // Clic corto ➡️ Detalles
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, RestaurantDetailActivity.class);
-            intent.putExtra("restaurant_id", restaurant.id); // ✅ ID importante
-            intent.putExtra("restaurant_name", restaurant.name); // opcional
+            intent.putExtra("restaurant_id", restaurant.id);
+            intent.putExtra("restaurant_name", restaurant.name);
             context.startActivity(intent);
         });
 
-        // Clic largo ➡️ Acción externa (editar o eliminar)
         holder.itemView.setOnLongClickListener(v -> {
             if (longClickListener != null) {
                 longClickListener.onRestaurantLongClick(v, restaurant);
@@ -73,16 +69,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return restaurantList.size();
     }
 
-    // Para búsqueda 🔍
     public void updateList(List<Restaurant> newList) {
         restaurantList = newList;
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.restaurantNameTextView);
         }

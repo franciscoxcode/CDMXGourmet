@@ -26,19 +26,19 @@ public class EditRestaurantActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit_restaurant);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.editRestaurantLayout), (v, insets) -> {
-            Insets sb = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(sb.left, sb.top, sb.right, sb.bottom);
-            return insets;
-        });
-
-        // 🧱 Toolbar con botón de regreso
+        // 🧱 Toolbar con botón de back
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Editar restaurante");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.editRestaurantLayout), (v, insets) -> {
+            Insets sb = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(sb.left, sb.top, sb.right, sb.bottom);
+            return insets;
+        });
 
         editTextRestaurantName = findViewById(R.id.editTextRestaurantName);
         updateButton = findViewById(R.id.updateButton);
@@ -73,6 +73,7 @@ public class EditRestaurantActivity extends AppCompatActivity {
         });
     }
 
+    // Manejar clic en flecha hacia atrás
     @Override
     public boolean onSupportNavigateUp() {
         finish();
