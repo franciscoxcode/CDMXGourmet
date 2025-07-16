@@ -11,22 +11,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CDMXGourmet">
-        <activity
-            android:name=".AddRestaurantActivity"
-            android:exported="false" />
-        <activity android:name=".activities.DishDetailActivity" />
-        <activity
-            android:name=".activities.RestaurantDetailActivity"
-            android:exported="false" />
+
+        <!-- 🏠 Main launcher activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 🍽 Restaurant detail activity -->
+        <activity
+            android:name=".activities.RestaurantDetailActivity"
+            android:exported="false" />
+
+        <!-- 📋 Dish detail activity -->
+        <activity
+            android:name=".activities.DishDetailActivity"
+            android:exported="false" />
+
+        <!-- ➕ Add restaurant activity -->
+        <activity
+            android:name=".AddRestaurantActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

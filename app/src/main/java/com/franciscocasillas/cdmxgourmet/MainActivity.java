@@ -1,5 +1,6 @@
 package com.franciscocasillas.cdmxgourmet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.franciscocasillas.cdmxgourmet.adapters.RestaurantAdapter;
 import com.franciscocasillas.cdmxgourmet.data.RestaurantDao;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RestaurantAdapter(restaurantList);
         recyclerView.setAdapter(adapter);
+
+        // ➕ Set up FAB to open AddRestaurantActivity
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddRestaurantActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
