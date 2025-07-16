@@ -34,6 +34,7 @@ public class RestaurantDao {
                     new ArrayList<>(), // drinks
                     new ArrayList<>()  // extras
             );
+            restaurant.id = cursor.getInt(cursor.getColumnIndexOrThrow("_id")); // asegúrate de tener esta propiedad
             restaurantList.add(restaurant);
         }
 
@@ -49,5 +50,21 @@ public class RestaurantDao {
         long newId = db.insert("restaurants", null, values);
         db.close();
         return newId;
+    }
+
+    public int updateRestaurant(int id, String newName) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", newName);
+        int rows = db.update("restaurants", values, "_id = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return rows;
+    }
+
+    public int deleteRestaurant(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rows = db.delete("restaurants", "_id = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return rows;
     }
 }

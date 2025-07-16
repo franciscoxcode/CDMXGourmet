@@ -37,6 +37,10 @@
             android:name=".AddRestaurantActivity"
             android:exported="false" />
 
+        <!-- ✏️ Correct Edit activity (package root) -->
+        <activity
+            android:name=".EditRestaurantActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

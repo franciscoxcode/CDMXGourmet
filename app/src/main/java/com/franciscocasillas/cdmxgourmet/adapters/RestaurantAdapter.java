@@ -13,15 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.activities.RestaurantDetailActivity;
 import com.franciscocasillas.cdmxgourmet.models.Restaurant;
+import com.franciscocasillas.cdmxgourmet.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.franciscocasillas.cdmxgourmet.MainActivity;
-
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
     private List<Restaurant> restaurantList;
+    private OnRestaurantLongClickListener longClickListener;
+
+    // Interfaz para manejar clic largo 🖱️
+    public interface OnRestaurantLongClickListener {
+        void onRestaurantLongClick(View view, Restaurant restaurant);
+    }
+
+    public void setOnRestaurantLongClickListener(OnRestaurantLongClickListener listener) {
+        this.longClickListener = listener;
+    }
 
     public RestaurantAdapter(List<Restaurant> restaurantList) {
         this.restaurantList = new ArrayList<>(restaurantList);
@@ -40,13 +49,22 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         Restaurant restaurant = restaurantList.get(position);
         holder.nameTextView.setText(restaurant.name);
 
+        // Clic corto ➡️ Detalles
         holder.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
             Intent intent = new Intent(context, RestaurantDetailActivity.class);
-            intent.putExtra("restaurant_name", restaurant.name);
-            int indexInFullList = MainActivity.restaurantList.indexOf(restaurant);
-            intent.putExtra("restaurant_index", indexInFullList);
+            intent.putExtra("restaurant_id", restaurant.id); // ✅ ID importante
+            intent.putExtra("restaurant_name", restaurant.name); // opcional
             context.startActivity(intent);
+        });
+
+        // Clic largo ➡️ Acción externa (editar o eliminar)
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onRestaurantLongClick(v, restaurant);
+                return true;
+            }
+            return false;
         });
     }
 
@@ -55,12 +73,11 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         return restaurantList.size();
     }
 
-    // Update search list
+    // Para búsqueda 🔍
     public void updateList(List<Restaurant> newList) {
         restaurantList = newList;
         notifyDataSetChanged();
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;

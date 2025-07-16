@@ -19,10 +19,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.franciscocasillas.cdmxgourmet.fragments.DishListFragment;
 
-
 public class RestaurantDetailActivity extends AppCompatActivity {
 
     private static final String[] TAB_TITLES = new String[]{"Comida", "Bebidas", "Complementos"};
+    private int restaurantId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +36,11 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Index name
+        // Obtener datos del intent
         String restaurantName = getIntent().getStringExtra("restaurant_name");
-        int restaurantIndex = getIntent().getIntExtra("restaurant_index", 0);
+        restaurantId = getIntent().getIntExtra("restaurant_id", -1);
 
-        // Toolbar as action bar
+        // Configurar toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -48,9 +48,9 @@ public class RestaurantDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // ViewPager and TabLayout
+        // ViewPager y tabs
         ViewPager2 viewPager = findViewById(R.id.viewPager);
-        viewPager.setAdapter(new RestaurantPagerAdapter(this, restaurantIndex));
+        viewPager.setAdapter(new RestaurantPagerAdapter(this, restaurantId)); // ✅ usamos ID, no índice
 
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         new TabLayoutMediator(tabLayout, viewPager,
@@ -58,7 +58,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         ).attach();
     }
 
-    // Search menu
+    // Menú de búsqueda
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
@@ -85,7 +85,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         return true;
     }
 
-    // Back button
+    // Acción del botón de retroceso
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -95,6 +95,7 @@ public class RestaurantDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Aplica filtro al tab actual
     private void applyFilter(String query) {
         int currentTab = ((ViewPager2) findViewById(R.id.viewPager)).getCurrentItem();
         RestaurantPagerAdapter adapter = (RestaurantPagerAdapter) ((ViewPager2) findViewById(R.id.viewPager)).getAdapter();
