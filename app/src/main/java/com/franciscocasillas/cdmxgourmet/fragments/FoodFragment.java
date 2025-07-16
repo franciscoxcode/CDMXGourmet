@@ -15,6 +15,7 @@ import com.franciscocasillas.cdmxgourmet.MainActivity;
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.adapters.DishAdapter;
 import com.franciscocasillas.cdmxgourmet.models.Dish;
+import com.franciscocasillas.cdmxgourmet.models.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +43,11 @@ public class FoodFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         int restaurantIndex = getArguments().getInt("index");
-        allDishes = MainActivity.restaurantList.get(restaurantIndex).getFood();
+        Restaurant restaurant = MainActivity.restaurantList.get(restaurantIndex);
+        allDishes = restaurant.getFood();
+        int restaurantId = restaurant.id;
 
-        adapter = new DishAdapter(new ArrayList<>(allDishes));
+        adapter = new DishAdapter(new ArrayList<>(allDishes), restaurantId);
         recyclerView.setAdapter(adapter);
 
         return view;

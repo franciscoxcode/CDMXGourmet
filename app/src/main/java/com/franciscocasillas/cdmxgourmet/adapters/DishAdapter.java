@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.franciscocasillas.cdmxgourmet.R;
 import com.franciscocasillas.cdmxgourmet.activities.DishDetailActivity;
+import com.franciscocasillas.cdmxgourmet.EditDishActivity;
 import com.franciscocasillas.cdmxgourmet.models.Dish;
 
 import java.util.List;
@@ -18,9 +19,11 @@ import java.util.List;
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
 
     private List<Dish> dishList;
+    private int restaurantId;
 
-    public DishAdapter(List<Dish> dishList) {
+    public DishAdapter(List<Dish> dishList, int restaurantId) {
         this.dishList = dishList;
+        this.restaurantId = restaurantId;
     }
 
     @NonNull
@@ -43,7 +46,6 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
         return dishList.size();
     }
 
-    // Update filtered list
     public void updateList(List<Dish> newList) {
         dishList.clear();
         dishList.addAll(newList);
@@ -69,9 +71,25 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.ViewHolder> {
                     intent.putExtra("dish_description", clickedDish.description);
                     intent.putExtra("dish_price", clickedDish.price);
                     intent.putExtra("dish_image", clickedDish.imageUrl);
-
                     v.getContext().startActivity(intent);
                 }
+            });
+
+            itemView.setOnLongClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    Dish dish = dishList.get(position);
+
+                    Intent intent = new Intent(v.getContext(), EditDishActivity.class);
+                    intent.putExtra("restaurant_id", restaurantId);
+                    intent.putExtra("dish_id", dish.id); // ✅ necesario para editar/eliminar
+                    intent.putExtra("dish_name", dish.name);
+                    intent.putExtra("dish_price", dish.price);
+                    intent.putExtra("dish_description", dish.description);
+                    intent.putExtra("dish_type", dish.type);
+                    v.getContext().startActivity(intent);
+                }
+                return true;
             });
         }
     }

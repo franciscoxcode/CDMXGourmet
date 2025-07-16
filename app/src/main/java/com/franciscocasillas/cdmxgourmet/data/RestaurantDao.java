@@ -18,7 +18,7 @@ public class RestaurantDao {
         dbHelper = new DatabaseHelper(context);
     }
 
-    // 🔁 Obtener todos los restaurantes (sin platillos asociados directamente)
+    // 🔁 Obtener todos los restaurantes
     public List<Restaurant> getAllRestaurants() {
         List<Restaurant> restaurantList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -32,9 +32,7 @@ public class RestaurantDao {
         while (cursor.moveToNext()) {
             Restaurant restaurant = new Restaurant(
                     cursor.getString(cursor.getColumnIndexOrThrow("name")),
-                    new ArrayList<>(), // food
-                    new ArrayList<>(), // drinks
-                    new ArrayList<>()  // extras
+                    new ArrayList<>(), new ArrayList<>(), new ArrayList<>()
             );
             restaurant.id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
             restaurantList.add(restaurant);
@@ -73,7 +71,7 @@ public class RestaurantDao {
         return rows;
     }
 
-    // 🍽️ Insertar platillo para restaurante
+    // 🍽️ Insertar platillo
     public long insertDishForRestaurant(int restaurantId, Dish dish) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -87,14 +85,14 @@ public class RestaurantDao {
         return newId;
     }
 
-    // 🔍 Obtener platillos por tipo para un restaurante
+    // 🔍 Obtener platillos por tipo
     public List<Dish> getDishesByType(int restaurantId, String type) {
         List<Dish> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor = db.query(
                 DatabaseHelper.TABLE_DISHES,
-                new String[]{"name", "price", "description", "type"},
+                new String[]{"_id", "name", "price", "description", "type"},
                 "restaurant_id = ? AND type = ?",
                 new String[]{String.valueOf(restaurantId), type},
                 null, null, null
@@ -105,12 +103,36 @@ public class RestaurantDao {
             double price = cursor.getDouble(cursor.getColumnIndexOrThrow("price"));
             String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
             String dishType = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
 
-            list.add(new Dish(name, price, description, dishType));
+            Dish dish = new Dish(name, price, description, dishType);
+            dish.id = id;
+            list.add(dish);
         }
 
         cursor.close();
         db.close();
         return list;
+    }
+
+    // ✏️ Actualizar platillo
+    public int updateDish(Dish dish) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("name", dish.name);
+        values.put("price", dish.price);
+        values.put("description", dish.description);
+        values.put("type", dish.type);
+        int rows = db.update(DatabaseHelper.TABLE_DISHES, values, "_id = ?", new String[]{String.valueOf(dish.id)});
+        db.close();
+        return rows;
+    }
+
+    // 🗑️ Eliminar platillo
+    public int deleteDish(int dishId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rows = db.delete(DatabaseHelper.TABLE_DISHES, "_id = ?", new String[]{String.valueOf(dishId)});
+        db.close();
+        return rows;
     }
 }

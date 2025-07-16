@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <!-- 🧭 Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Editar platillo"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:layout_scrollFlags="scroll|enterAlways" />
+
+    <!-- Contenido con scroll -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- 📝 Nombre -->
+            <EditText
+                android:id="@+id/editTextDishName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Nombre del platillo"
+                android:inputType="textPersonName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- 💰 Precio -->
+            <EditText
+                android:id="@+id/editTextDishPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Precio"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/editTextDishName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- 🧾 Descripción -->
+            <EditText
+                android:id="@+id/editTextDishDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Descripción"
+                android:inputType="textMultiLine"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/editTextDishPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- 🍽️ Tipo -->
+            <RadioGroup
+                android:id="@+id/radioGroupType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/editTextDishDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <RadioButton
+                    android:id="@+id/radioFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comida" />
+
+                <RadioButton
+                    android:id="@+id/radioDrink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bebida" />
+
+                <RadioButton
+                    android:id="@+id/radioExtra"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Complemento" />
+            </RadioGroup>
+
+            <!-- ✅ Actualizar -->
+            <Button
+                android:id="@+id/updateDishButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Actualizar"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@id/radioGroupType"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- 🗑️ Eliminar -->
+            <Button
+                android:id="@+id/deleteDishButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Eliminar"
+                android:backgroundTint="@android:color/holo_red_light"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/updateDishButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

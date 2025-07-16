@@ -67,7 +67,7 @@ public class DishListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.dishRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new DishAdapter(new ArrayList<>());
+        adapter = new DishAdapter(new ArrayList<>(), restaurantId);
         recyclerView.setAdapter(adapter);
 
         loadDishes(); // ✅ Cargar desde base de datos
