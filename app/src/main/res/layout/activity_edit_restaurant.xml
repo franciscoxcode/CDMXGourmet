@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- 🧱 Toolbar arriba -->
+    <!-- Toolbar arriba -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- ✏️ Campo para editar nombre -->
+    <!-- Campo para editar nombre -->
     <EditText
         android:id="@+id/editTextRestaurantName"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
 
-    <!-- 🔘 Botones alineados horizontalmente -->
+    <!-- Botones alineados horizontalmente -->
     <LinearLayout
         android:id="@+id/buttonRow"
         android:layout_width="0dp"

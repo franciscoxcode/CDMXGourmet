@@ -3,7 +3,7 @@ package com.franciscocasillas.cdmxgourmet.models;
 import java.util.List;
 
 public class Restaurant {
-    public int id; // 🆔 ID necesario para editar/eliminar desde DAO
+    public int id;
     public String name;
     public List<Dish> food;
     public List<Dish> drinks;
@@ -18,7 +18,7 @@ public class Restaurant {
         this.extras = extras;
     }
 
-    // Constructor auxiliar si no tienes el ID aún (ej. al insertar)
+    // Constructor auxiliar
     public Restaurant(String name, List<Dish> food, List<Dish> drinks, List<Dish> extras) {
         this.name = name;
         this.food = food;

@@ -54,7 +54,7 @@ public class DishListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadDishes(); // 🔄 Refrescar cada vez que volvemos
+        loadDishes();
     }
 
     @Nullable
@@ -70,7 +70,7 @@ public class DishListFragment extends Fragment {
         adapter = new DishAdapter(new ArrayList<>(), restaurantId);
         recyclerView.setAdapter(adapter);
 
-        loadDishes(); // ✅ Cargar desde base de datos
+        loadDishes();
 
         return view;
     }
