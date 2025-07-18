@@ -1,8 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.CDMXGourmet" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+            <!-- Cambiar color de fondo del Toolbar -->
+            <item name="colorPrimary">#619ce1</item>
+            <item name="colorOnPrimary">#000000</item> <!-- negro para que el texto se lea -->
     </style>
 
     <style name="Theme.CDMXGourmet" parent="Base.Theme.CDMXGourmet">
@@ -12,5 +13,4 @@
     <style name="WhiteToolbarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="titleTextColor">@android:color/white</item>
     </style>
-
 </resources>

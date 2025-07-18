@@ -37,7 +37,7 @@
                 android:text="CDMX Gourmet"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:textSize="26sp"
+                android:textSize="22sp"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
@@ -62,6 +62,5 @@
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@android:color/holo_blue_dark" />
-
+        app:backgroundTint="#FAE693"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
