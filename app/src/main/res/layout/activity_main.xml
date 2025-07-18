@@ -37,7 +37,7 @@
                 android:text="CDMX Gourmet"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:textSize="22sp"
+                android:textSize="23sp"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
