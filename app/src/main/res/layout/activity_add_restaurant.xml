@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- 🧭 Toolbar superior -->
+    <!-- Toolbar superior -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- 📝 Campo nombre -->
+    <!-- Campo nombre -->
     <EditText
         android:id="@+id/editTextRestaurantName"
         android:layout_width="0dp"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ✅ Botón Guardar -->
+    <!-- Botón Guardar -->
     <Button
         android:id="@+id/saveRestaurantButton"
         android:layout_width="wrap_content"

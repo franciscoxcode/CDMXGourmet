@@ -18,7 +18,7 @@ public class RestaurantDao {
         dbHelper = new DatabaseHelper(context);
     }
 
-    // 🔁 Obtener todos los restaurantes
+    // Obtener todos los restaurantes
     public List<Restaurant> getAllRestaurants() {
         List<Restaurant> restaurantList = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -43,7 +43,7 @@ public class RestaurantDao {
         return restaurantList;
     }
 
-    // ➕ Insertar restaurante
+    // Insertar restaurante
     public long insertRestaurant(String name) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -53,7 +53,7 @@ public class RestaurantDao {
         return newId;
     }
 
-    // ✏️ Actualizar restaurante
+    // Actualizar restaurante
     public int updateRestaurant(int id, String newName) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -63,7 +63,7 @@ public class RestaurantDao {
         return rows;
     }
 
-    // 🗑️ Eliminar restaurante
+    // Eliminar restaurante
     public int deleteRestaurant(int id) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int rows = db.delete(DatabaseHelper.TABLE_RESTAURANTS, "_id = ?", new String[]{String.valueOf(id)});
@@ -71,7 +71,7 @@ public class RestaurantDao {
         return rows;
     }
 
-    // 🍽️ Insertar platillo
+    // Insertar platillo
     public long insertDishForRestaurant(int restaurantId, Dish dish) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -85,7 +85,7 @@ public class RestaurantDao {
         return newId;
     }
 
-    // 🔍 Obtener platillos por tipo
+    // Obtener platillos por tipo
     public List<Dish> getDishesByType(int restaurantId, String type) {
         List<Dish> list = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -115,7 +115,7 @@ public class RestaurantDao {
         return list;
     }
 
-    // ✏️ Actualizar platillo
+    // Actualizar platillo
     public int updateDish(Dish dish) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -128,7 +128,7 @@ public class RestaurantDao {
         return rows;
     }
 
-    // 🗑️ Eliminar platillo
+    // Eliminar platillo
     public int deleteDish(int dishId) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int rows = db.delete(DatabaseHelper.TABLE_DISHES, "_id = ?", new String[]{String.valueOf(dishId)});

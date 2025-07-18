@@ -23,7 +23,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_restaurant);
 
-        // 🧭 Toolbar con botón de retroceso
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -31,7 +31,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // ✅ Insets para evitar que se solape con barra de estado
+        // Insets para evitar que se solape con barra de estado
         View root = findViewById(R.id.main);
         if (root != null) {
             ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
@@ -41,10 +41,10 @@ public class AddRestaurantActivity extends AppCompatActivity {
             });
         }
 
-        // 🔠 Referencia al campo de texto
+        // Referencia al campo de texto
         editTextRestaurantName = findViewById(R.id.editTextRestaurantName);
 
-        // ➕ Botón para guardar restaurante
+        // Botón para guardar restaurante
         Button saveButton = findViewById(R.id.saveRestaurantButton);
         saveButton.setOnClickListener(v -> {
             String name = editTextRestaurantName.getText().toString().trim();
@@ -54,7 +54,7 @@ public class AddRestaurantActivity extends AppCompatActivity {
                 return;
             }
 
-            // 💾 Guardar en base de datos
+            // Guardar en base de datos
             RestaurantDao dao = new RestaurantDao(this);
             dao.insertRestaurant(name);
 

@@ -26,7 +26,7 @@ public class EditRestaurantActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit_restaurant);
 
-        // 🧱 Toolbar con botón de back
+        // Toolbar con botón de back
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

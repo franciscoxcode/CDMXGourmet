@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- 📝 Nombre -->
+            <!-- Nombre -->
             <EditText
                 android:id="@+id/editTextDishName"
                 android:layout_width="0dp"
@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 💰 Precio -->
+            <!-- Precio -->
             <EditText
                 android:id="@+id/editTextDishPrice"
                 android:layout_width="0dp"
@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 🧾 Descripción -->
+            <!-- Descripción -->
             <EditText
                 android:id="@+id/editTextDishDescription"
                 android:layout_width="0dp"
@@ -64,7 +64,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 🍽️ Tipo -->
+            <!-- Tipo -->
             <RadioGroup
                 android:id="@+id/radioGroupType"
                 android:layout_width="0dp"
@@ -94,7 +94,7 @@
                     android:text="Complemento" />
             </RadioGroup>
 
-            <!-- ✅ Actualizar -->
+            <!-- Actualizar -->
             <Button
                 android:id="@+id/updateDishButton"
                 android:layout_width="0dp"
@@ -105,7 +105,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 🗑️ Eliminar -->
+            <!-- Eliminar -->
             <Button
                 android:id="@+id/deleteDishButton"
                 android:layout_width="0dp"

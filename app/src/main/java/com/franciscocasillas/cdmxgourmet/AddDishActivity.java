@@ -25,7 +25,7 @@ public class AddDishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dish);
 
-        // 🧭 Toolbar con flecha atrás
+        // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -33,7 +33,7 @@ public class AddDishActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // 🟡 Obtener ID del restaurante
+        // Obtener ID del restaurante
         restaurantId = getIntent().getIntExtra("restaurant_id", -1);
         if (restaurantId == -1) {
             Toast.makeText(this, "Error: Restaurante no encontrado", Toast.LENGTH_SHORT).show();
@@ -67,14 +67,14 @@ public class AddDishActivity extends AppCompatActivity {
             }
 
             RadioButton selectedRadio = findViewById(selectedTypeId);
-            String type = selectedRadio.getTag().toString(); // ✅ Usar tag correcto
+            String type = selectedRadio.getTag().toString();
 
-            // ✅ Crear e insertar el platillo
+            // Crear e insertar el platillo
             Dish newDish = new Dish(name, parsedPrice, description, type);
             new RestaurantDao(this).insertDishForRestaurant(restaurantId, newDish);
 
             Toast.makeText(this, "Platillo guardado", Toast.LENGTH_SHORT).show();
-            finish(); // ⬅️ Regresa para refrescar
+            finish();
         });
     }
 

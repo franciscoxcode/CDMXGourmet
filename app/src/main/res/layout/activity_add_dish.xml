@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <!-- 🧭 Toolbar -->
+    <!-- Toolbar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- 📝 Nombre -->
+            <!-- Nombre -->
             <EditText
                 android:id="@+id/editTextDishName"
                 android:layout_width="0dp"
@@ -40,7 +40,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 💰 Precio -->
+            <!-- Precio -->
             <EditText
                 android:id="@+id/editTextDishPrice"
                 android:layout_width="0dp"
@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 🧾 Descripción -->
+            <!-- Descripción -->
             <EditText
                 android:id="@+id/editTextDishDescription"
                 android:layout_width="0dp"
@@ -64,7 +64,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!-- 🍽️ Tipo de platillo -->
+            <!-- Tipo de platillo -->
             <RadioGroup
                 android:id="@+id/radioGroupType"
                 android:layout_width="0dp"
@@ -97,7 +97,7 @@
                     android:tag="complement" />
             </RadioGroup>
 
-            <!-- ✅ Botón Guardar -->
+            <!-- Botón Guardar -->
             <Button
                 android:id="@+id/saveDishButton"
                 android:layout_width="0dp"
