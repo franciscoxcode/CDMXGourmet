@@ -11,11 +11,36 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        android:title="CDMX Gourmet"
-        android:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp">
+
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/hamburguesa"
+                android:contentDescription="Logo"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CDMX Gourmet"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="26sp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurantRecyclerView"

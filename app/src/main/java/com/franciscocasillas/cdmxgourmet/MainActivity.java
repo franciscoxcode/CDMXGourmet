@@ -1,5 +1,3 @@
-//💄 UI polish: preparing for visual improvements
-
 package com.franciscocasillas.cdmxgourmet;
 
 import android.content.Intent;
@@ -37,27 +35,30 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Toolbar personalizada
+        // 🧭 Toolbar personalizada con logo
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
-        // Ajustes de insets
+        // 🪟 Ajustes de insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Cargar restaurantes
+        // 📦 Cargar restaurantes desde DB
         setupRestaurants();
 
-        // RecyclerView
+        // 📋 RecyclerView
         RecyclerView recyclerView = findViewById(R.id.restaurantRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RestaurantAdapter(restaurantList);
         recyclerView.setAdapter(adapter);
 
-        // Long press
+        // ✏️ Long press para editar
         adapter.setOnRestaurantLongClickListener((view, restaurant) -> {
             Intent intent = new Intent(MainActivity.this, EditRestaurantActivity.class);
             intent.putExtra("restaurant_id", restaurant.id);
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // FAB para agregar
+        // ➕ FAB para agregar restaurante
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddRestaurantActivity.class);
@@ -73,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Refrescar al volver
     @Override
     protected void onResume() {
         super.onResume();
@@ -82,11 +82,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.updateList(restaurantList);
     }
 
-    // Menú de búsqueda
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) searchItem.getActionView();
 
@@ -108,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // Filtrado de restaurantes
     private void filterRestaurants(String text) {
         List<Restaurant> filteredList = restaurantList.stream()
                 .filter(r -> r.name.toLowerCase().contains(text.toLowerCase()))
@@ -116,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.updateList(filteredList);
     }
 
-    // Cargar restaurantes desde DB
     private void setupRestaurants() {
         RestaurantDao dao = new RestaurantDao(this);
         restaurantList = dao.getAllRestaurants();
