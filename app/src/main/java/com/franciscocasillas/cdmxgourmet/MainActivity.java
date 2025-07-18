@@ -1,3 +1,5 @@
+//💄 UI polish: preparing for visual improvements
+
 package com.franciscocasillas.cdmxgourmet;
 
 import android.content.Intent;
